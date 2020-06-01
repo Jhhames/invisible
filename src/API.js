@@ -1,7 +1,7 @@
 import axios from "axios";
 /**
  *  Weather API calls abstraction
- *  get requestion and error handling
+ *  get request and error handling
  */
 const $http = axios.create({
   baseURL: `http://api.weatherstack.com`
@@ -14,22 +14,22 @@ $http.interceptors.request.use(config => {
 });
 
 const API = {
-  async getWeatherAndTime(parameter) {
-    return new Promise(async (resolve, reject) => {
-      await $http
-        .get("/current", {
-          params: {
-            query: parameter
-          }
-        })
-        .then(result => {
-          console.log(this);
-          resolve(result);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+  async getWeatherAndTime(location) {
+    return await $http
+      .get("/current", {
+        params: { query: location }
+      })
+      .then(this.handleResponse)
+      .catch(error => {
+        throw new Error(error);
+      });
+  },
+
+  handleResponse(result) {
+    console.log(result);
+    return result.data.hasOwnProperty("current")
+      ? result
+      : Promise.reject(result.data.error.info);
   }
 };
 
