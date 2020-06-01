@@ -1,1 +1,1 @@
-console.log("%sJames is a goat", "color:blue");
+console.log("%cJames is a gsoat 😂", "color:red");
