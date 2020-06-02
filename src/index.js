@@ -1,7 +1,7 @@
 import API from "./API";
 
-let array = ["New York", "10005", "Tokyo", "São Paulo", "Pluto", "Lagos"];
-
+let array = ["New York"];
+// , "10005", "Tokyo", "São Paulo", "Pluto", "Lagos"
 const app = {
   index() {
     for (let i = 0, length = array.length; i < length; i++) {
@@ -9,17 +9,16 @@ const app = {
       API.getWeatherAndTime(element)
         .then(this.logTimeAndWeather)
         .catch(e => {
-          console.log(`%cElement Error: ${e.message} `, "color:red");
+          console.log(`%c${element} Error: ${e.message} `, "color:red");
         });
     }
   },
 
   logTimeAndWeather(weather) {
-    // console.log(weather);
-    const { temperature } = weather.data.current;
+    const { temperature, weather_descriptions } = weather.data.current;
     const { name, localtime } = weather.data.location;
     console.log(
-      `%c Location: ${name}, Current Time : ${localtime}, Weather: ${temperature} Degress C`,
+      `%cLocation: ${name}; Current Time: ${localtime}; Weather: ${weather_descriptions.toString()}; Temperature: ${temperature} degrees C`,
       "color:green"
     );
   }
