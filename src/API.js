@@ -26,7 +26,6 @@ const API = {
   },
 
   handleResponse(result) {
-    console.log(result);
     return result.data.hasOwnProperty("current")
       ? result
       : Promise.reject(result.data.error.info);
