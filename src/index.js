@@ -1,15 +1,15 @@
 import API from "./API";
 
-let array = ["New York"];
+let locationArray = ["New York"];
 // , "10005", "Tokyo", "São Paulo", "Pluto", "Lagos"
 const app = {
   index() {
-    for (let i = 0, length = array.length; i < length; i++) {
-      const element = array[i];
-      API.getWeatherAndTime(element)
+    for (let i = 0, length = locationArray.length; i < length; i++) {
+      const location = locationArray[i];
+      API.getWeatherAndTime(location)
         .then(this.logTimeAndWeather)
         .catch(e => {
-          console.log(`%c${element} Error: ${e.message} `, "color:red");
+          console.log(`%c${location} Error: ${e.message} `, "color:red");
         });
     }
   },
