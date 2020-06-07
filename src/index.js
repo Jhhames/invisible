@@ -1,27 +1,35 @@
 import weather from "./weather";
-import { fromEvent } from "rxjs";
 
-let locationArray = ["New York"];
-// , "10005", "Tokyo", "São Paulo", "Pluto", "Lagos"
-const addInputButton = document.getElementById("addInput");
-const submitInputButton = document.getElementById("submitInput");
-const dataInput = document.getElementById("input");
+const app = {
+  init() {
+    this.updateListInput();
 
-fromEvent(addInputButton, "click").subscribe(() => {
-  if (dataInput.value) locationArray.push(dataInput.value);
-  console.log(locationArray);
-  dataInput.value = "";
-});
-// addInputButton.addEventListener("click", event => {
-//   if (dataInput.value) locationArray.push(dataInput.value);
-//   console.log(locationArray);
-//   dataInput.value = "";
-// });
+    const addInputButton = document.getElementById("addInput");
+    const clearInput = document.getElementById("clearInput");
+    const submitInputButton = document.getElementById("submitInput");
+    const dataInput = document.getElementById("input");
 
-const app = {};
+    addInputButton.addEventListener("click", () => {
+      if (dataInput.value) this.locationArray.push(dataInput.value);
+      dataInput.value = "";
+      this.updateListInput();
+    });
 
-submitInputButton.addEventListener("click", () => {
-  weather.getWeatherAndTime(locationArray);
-});
+    clearInput.addEventListener("click", () => {
+      this.locationArray.length = 0;
+      this.updateListInput();
+    });
 
-// app.index();
+    submitInputButton.addEventListener("click", () => {
+      console.log("fetching location data...");
+      weather.getWeatherAndTime(this.locationArray);
+    });
+  },
+  locationArray: ["New York", "10005", "Tokyo", "São Paulo", "Pluto", "Lagos"],
+  updateListInput() {
+    const listInputs = document.getElementById("listInputs");
+    listInputs.innerHTML = `{ ${this.locationArray.toString()} }`;
+  }
+};
+
+app.init();
