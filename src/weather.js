@@ -7,15 +7,16 @@ import api from "./api";
 
 const weather = {
   getWeatherAndTime(locationArray) {
-    for (let i = 0, length = locationArray.length; i < length; i++) {
-      const location = locationArray[i];
-      api
-        .getWeatherAndTime(location)
-        .then(this.logWeatherAndTime)
-        .catch(e => {
-          console.log(`%c${location} Error: ${e.message} `, "color:red");
-        });
-    }
+    locationArray.forEach(location => this.singleLocationCall(location));
+  },
+
+  singleLocationCall(location) {
+    api
+      .getWeatherAndTime(location)
+      .then(this.logWeatherAndTime)
+      .catch(e => {
+        console.log(`%c${location} Error: ${e.message} `, "color:red");
+      });
   },
 
   logWeatherAndTime(response) {
