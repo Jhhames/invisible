@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "./api"
 
 /**
  * Weather Abstraction
@@ -7,7 +7,7 @@ import api from "./api";
 
 const weather = {
   getWeatherAndTime(locationArray) {
-    locationArray.forEach(location => this.singleLocationCall(location));
+    locationArray.forEach(location => this.singleLocationCall(location))
   },
 
   singleLocationCall(location) {
@@ -15,18 +15,18 @@ const weather = {
       .getWeatherAndTime(location)
       .then(this.logWeatherAndTime)
       .catch(e => {
-        console.log(`%c${location} Error: ${e.message} `, "color:red");
-      });
+        console.log(`%c${location} Error: ${e.message} `, "color:red")
+      })
   },
 
   logWeatherAndTime(response) {
-    const { temperature, weather_descriptions } = response.data.current;
-    const { name, localtime } = response.data.location;
+    const { temperature, weather_descriptions } = response.data.current
+    const { name, localtime } = response.data.location
     console.log(
       `%cLocation: ${name}; Current Time: ${localtime}; Weather: ${weather_descriptions.toString()}; Temperature: ${temperature} degrees C`,
       "color:green"
-    );
+    )
   }
-};
+}
 
-export default weather;
+export default weather
