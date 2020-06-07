@@ -13,7 +13,7 @@ $http.interceptors.request.use(config => {
   return config;
 });
 
-const API = {
+const api = {
   async getWeatherAndTime(location) {
     return await $http
       .get("/current", {
@@ -25,11 +25,11 @@ const API = {
       });
   },
 
-  handleResponse(result) {
-    return result.data.hasOwnProperty("current")
-      ? result
-      : Promise.reject(result.data.error.info);
+  handleResponse(response) {
+    return response.data.hasOwnProperty("current")
+      ? response
+      : Promise.reject(response.data.error.info);
   }
 };
 
-export default API;
+export default api;
